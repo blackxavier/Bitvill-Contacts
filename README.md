@@ -20,7 +20,7 @@
 
 ### Clone repo
 
-    Clone repository - git clone https://github.com/blackxavier/Bitvill-Todo.git
+    Clone repository - git clone https://github.com/blackxavier/Bitvill-Contacts.git
 
 ### Create a virtual environment and install dependencies
 
