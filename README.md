@@ -15,7 +15,6 @@
 * / - (view all todos)
 * id/ - (view/edit/update/delete single todo)
 
-
 ## How to use
 
 ### Clone repo
