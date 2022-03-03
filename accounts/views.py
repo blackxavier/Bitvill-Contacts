@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
-
+from django.contrib.auth import logout
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login
 from rest_framework.generics import UpdateAPIView
@@ -139,3 +139,17 @@ class ObtainAuthTokenView(ObtainAuthToken):
         token, created = Token.objects.get_or_create(user=user)
 
         return Response({"token": token.key, "user_id": user.pk, "email": user.email})
+
+
+@api_view(["POST"])
+@permission_classes([permissions.IsAuthenticated])
+def user_logout(request):
+
+    request.user.auth_token.delete()
+
+    logout(request)
+    data = {
+        "response": "User logged out successfully.",
+        "status": f"{status.HTTP_200_OK} OK",
+    }
+    return Response(data)
