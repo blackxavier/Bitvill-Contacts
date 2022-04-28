@@ -1,24 +1,19 @@
 # django imports
 
-from django.db import models
-
-from django.dispatch import receiver
-
 from django.conf import settings
+from django.contrib.auth.models import AbstractUser
+from django.db import models
 from django.db.models.signals import post_save
-
-
+from django.dispatch import receiver
+from django.utils.translation import gettext_lazy as _
 # rest_framework imports
 from rest_framework.authtoken.models import Token
 
+from accounts.manager import UserManager
 
 # imports from app
 
-from accounts.manager import UserManager
 
-from django.contrib.auth.models import AbstractUser
-from django.db import models
-from django.utils.translation import gettext_lazy as _
 
 
 class User(AbstractUser):

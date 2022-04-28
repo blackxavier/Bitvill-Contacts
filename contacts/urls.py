@@ -1,6 +1,6 @@
 from django.urls import path
-from contacts.views import ListCreateApiView, RetrieveUpdateDeleteAPIView
 
+from contacts.views import ListCreateApiView, RetrieveUpdateDeleteAPIView
 
 app_name = "contactsapi"
 

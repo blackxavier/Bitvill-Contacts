@@ -1,7 +1,6 @@
-from django.db import models
 from django.contrib.auth import get_user_model
+from django.db import models
 from rest_framework.reverse import reverse
-
 
 User = get_user_model()
 

@@ -1,23 +1,19 @@
 # from django.forms import ValidationError
-from rest_framework import status
-from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
+from django.contrib.auth import authenticate, get_user_model, login, logout
+from rest_framework import permissions, status
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
-from django.contrib.auth import logout
-from rest_framework.views import APIView
-from django.contrib.auth import authenticate, login
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.generics import UpdateAPIView
-from rest_framework.authentication import TokenAuthentication
-from accounts.serializers import (
-    ChangePasswordSerializer,
-    WriteUserProfileSerializer,
-    ReadUserProfileSerializer,
-    RegistrationSerializer,
-)
-from django.contrib.auth import get_user_model
-from rest_framework import permissions
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
+from accounts.serializers import (ChangePasswordSerializer,
+                                  MyAuthTokenSerializer,
+                                  ReadUserProfileSerializer,
+                                  RegistrationSerializer,
+                                  WriteUserProfileSerializer)
 
 User = get_user_model()
 
@@ -127,7 +123,7 @@ def UserProfileView(request):
 
 class ObtainAuthTokenView(ObtainAuthToken):
     def post(self, request, *args, **kwargs):
-        serializer = self.serializer_class(
+        serializer = MyAuthTokenSerializer(
             data=request.data, context={"request": request}
         )
 

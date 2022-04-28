@@ -1,15 +1,12 @@
-from rest_framework import generics, status
-from contacts.serializers import (
-    ReadIndividualContactSerializer,
-    ReadContactsSerializer,
-    WriteContactSerializer,
-)
-from contacts.models import ContactModel
-from rest_framework import permissions
+from rest_framework import generics, permissions, status
+from rest_framework.generics import UpdateAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from rest_framework.generics import UpdateAPIView
+from contacts.models import ContactModel
+from contacts.serializers import (ReadContactsSerializer,
+                                  ReadIndividualContactSerializer,
+                                  WriteContactSerializer)
 
 
 class ListCreateApiView(APIView):
