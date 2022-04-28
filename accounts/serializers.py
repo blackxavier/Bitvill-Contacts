@@ -50,6 +50,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
         else:
             return value
 
+    def validate_email(self, value):
+        qs = User.objects.filter(email=value)
+        if qs:
+            raise serializers.ValidationError({"error": "Email has already been used"})
+        else:
+            return value
+
     def save(self):
         account = User(
             email=self.validated_data["email"],

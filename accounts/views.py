@@ -33,14 +33,13 @@ def RegistrationApiView(request):
 
         if serializer.is_valid():
             account = serializer.save()
-            token = Token.objects.get(user=account).key
+
             data = {
                 "user": {
                     "response": "Account has been created successfully",
                     "email": account.email,
                     "Phone number": account.phone_number,
                 },
-                "token": {"key": token},
                 "status": f"{status.HTTP_201_CREATED} CREATED",
             }
             return Response(data, status=status.HTTP_201_CREATED)
