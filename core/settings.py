@@ -15,7 +15,7 @@ SECRET_KEY = env("secret_key")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("debug")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = list(env("allowed_hosts"))
 
 
 # Application definition
