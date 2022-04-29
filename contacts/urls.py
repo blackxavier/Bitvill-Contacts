@@ -5,9 +5,9 @@ from contacts.views import ListCreateApiView, RetrieveUpdateDeleteAPIView
 app_name = "contactsapi"
 
 urlpatterns = [
-    path("", ListCreateApiView.as_view(), name="list-create-contact"),
+    path("contacts/", ListCreateApiView.as_view(), name="list-create-contact"),
     path(
-        "<int:pk>/",
+        "contacts/<int:pk>/",
         RetrieveUpdateDeleteAPIView.as_view(),
         name="retrieve-update-destroy",
     ),
