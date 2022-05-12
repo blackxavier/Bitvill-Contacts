@@ -4,9 +4,11 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from contacts.models import ContactModel
-from contacts.serializers import (ReadContactsSerializer,
-                                  ReadIndividualContactSerializer,
-                                  WriteContactSerializer)
+from contacts.serializers import (
+    ReadContactsSerializer,
+    ReadIndividualContactSerializer,
+    WriteContactSerializer,
+)
 
 
 class ListCreateApiView(APIView):
@@ -25,8 +27,6 @@ class ListCreateApiView(APIView):
             data=request.data, context={"request": request}
         )
         if serializer.is_valid():
-            print(serializer.validated_data)
-            print(serializer.errors)
             serializer.save(user=request.user)
             return Response(
                 {
@@ -41,17 +41,19 @@ class ListCreateApiView(APIView):
 
 class RetrieveUpdateDeleteAPIView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [permissions.IsAuthenticated]
-    queryset = ContactModel.objects.all()
+
     lookup_field = "pk"
 
     def get_serializer_class(self):
         if self.request.method == "GET":
             return ReadIndividualContactSerializer
-        elif self.requeest.method in ["PUT", "PATCH"]:
+        elif self.request.method in ["PUT", "PATCH"]:
             return WriteContactSerializer
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
     def get_queryset(self):
-        return ContactModel.objects.filter(user=self.request.user)
+        username = self.kwargs["pk"]
+        qs = ContactModel.objects.filter(user=self.request.user)
+        return qs

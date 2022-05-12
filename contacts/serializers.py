@@ -39,6 +39,7 @@ class ReadIndividualContactSerializer(serializers.ModelSerializer):
             "contact_last_name",
             "contact_phone_number",
             "contact_description",
+            "date_created",
         ]
 
         read_only_fields = fields
@@ -59,10 +60,11 @@ class WriteContactSerializer(serializers.ModelSerializer):
         user = self.context["request"].user
         allcontacts = ContactModel.objects.filter(user=user)
         for contact in allcontacts:
+
             if contact.contact_email == attrs["contact_email"]:
                 raise serializers.ValidationError(
                     {
-                        "response": "Contact with this email address  has been saved by you"
+                        "response": "Contact with this email address has been saved by you"
                     }
                 )
             elif contact.contact_phone_number == attrs["contact_phone_number"]:
