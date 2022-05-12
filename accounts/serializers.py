@@ -8,6 +8,7 @@ User = get_user_model()
 
 
 class MyAuthTokenSerializer(AuthTokenSerializer):
+    username = None
     email = serializers.EmailField(label=_("Email"), write_only=True)
     password = serializers.CharField(
         label=_("Password"),
@@ -57,6 +58,22 @@ class WriteUserProfileSerializer(serializers.ModelSerializer):
             "email",
             "phone_number",
         ]
+
+    def validate_phone_number(self, value):
+        qs = User.objects.filter(phone_number=value)
+        if qs:
+            raise serializers.ValidationError(
+                {"error": "Phone number has already been used"}
+            )
+        else:
+            return value
+
+    def validate_email(self, value):
+        qs = User.objects.filter(email=value)
+        if qs:
+            raise serializers.ValidationError({"error": "Email has already been used"})
+        else:
+            return value
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
