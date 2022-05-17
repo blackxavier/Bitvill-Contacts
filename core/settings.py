@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import django_heroku
 import environ
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -139,6 +139,6 @@ SPECTACULAR_SETTINGS = {
 }
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-import django_heroku
+
 
 django_heroku.settings(locals())
